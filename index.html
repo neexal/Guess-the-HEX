@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guess the HEX</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        .main{
+            height: 100vh;
+        }
+        .center{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            text-align: center;
+        }
+        h1{
+            font-size: 40px;
+            font-weight: bolder;
+
+        }
+        span{
+            border: 1px solid black;
+            padding: 9px 20px 12px 20px;
+            background-color: black;
+            color: #fff;
+            font-size: 23px;
+            font-weight: bolder;
+            width: 40%;
+        }
+        input[type=text]{
+            border: 1px solid black;
+            padding: 11px 20px;
+            background-color: black;
+            color: #fff;
+            font-size: 20px;
+            font-weight: bold;
+            width: 40%;
+            /* border-radius: 6px; */
+        }
+        input[type=text]:hover{
+            border: 1px solid black;
+            outline: none;
+            cursor: pointer;
+        }
+        button{
+            background-color: black;
+            color: white;
+            margin: 20px 0px;
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-size: 20px;
+        }
+        #res{
+            font-size: 30px;
+            font-weight: bold;
+            padding-top: 40px;
+            text-decoration: underline;
+        }
+        #pickedCol{
+            border-radius: 50%;
+            height: 40px;
+            width: 40px;
+            margin-top: 15px;
+            margin-left: 45%;
+        }
+    </style>
+</head>
+<body>
+    <div class="main">
+        <div class="center">
+            <h1>Guess the <br> hex value of <br> the background <br> color!!!</h1>
+            <span>#</span><input type="text" name="code" id="userColor" pattern="[0-9a-fA-F]{6}"> <br>
+            <button type="submit" onclick="checkColor()">Check</button>
+            <p id="res"></p>
+            <p id="colPicked"></p>
+            <div id="pickedCol"></div>
+        </div>
+    </div>
+
+
+    <script>
+        var items = [0,1,2,3,4,5,6,7,8,9,"A","B","C","D","E","F"];
+        var col = "";
+        for(var i=0;i<=5;i++){
+            var item = items[Math.floor(Math.random()*items.length)];
+            // console.log(item);
+            col = col.concat(item);
+        }   
+        // console.log(col);
+
+        function checkColor(){
+            var userColor = document.getElementById("userColor").value;
+            console.log(userColor);
+
+            if(userColor == col){
+                document.getElementById("res").innerHTML = "Congratulations. Your guess was correct";
+            }
+            else{
+                document.getElementById("res").innerHTML = "Your guess was incorrect. " + '<a href="">Try Another!!!</a>';
+                document.getElementById("colPicked").innerHTML = "Your guessed color was:";
+                document.getElementById("pickedCol").style.backgroundColor = "#" + userColor;
+                document.getElementById("pickedCol").style.border = "1px solid black"
+            }
+        }
+
+        document.body.style.backgroundColor = "#" + col;
+    </script>
+</body>
+</html>
